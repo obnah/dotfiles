@@ -48,6 +48,12 @@ Plugin 'Syntastic'
 Plugin 'The-NERD-tree'
 Plugin 'cscope_macros.vim'
 Plugin 'posva/vim-vue'
+
+Plugin 'Erlang-plugin-package'
+Plugin 'erlang-indent-file'
+Plugin 'Erlang_detectVariable'
+Plugin 'vim-erlang-skeleteons'
+
                       
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
