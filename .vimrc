@@ -41,6 +41,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'gabrielelana/vim-markdown'
 Plugin 'wombat256.vim'
 Plugin 'molokai'
+Plugin 'jellybeans.vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'ervandew/supertab'
 Plugin 'fugitive.vim'
@@ -54,6 +55,7 @@ Plugin 'erlang-indent-file'
 Plugin 'Erlang_detectVariable'
 Plugin 'vim-erlang-skeleteons'
 
+Plugin 'taglist.vim'
                       
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -271,5 +273,9 @@ function! Refresh_firefox()
 	endif
 endfunction
 
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" taglist
+"
+map <silent> <F4> :TlistToggle<cr>
+let Tlist_Show_One_File = 1
 
