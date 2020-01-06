@@ -42,7 +42,7 @@ Plugin 'gabrielelana/vim-markdown'
 Plugin 'wombat256.vim'
 Plugin 'molokai'
 Plugin 'jellybeans.vim'
-Plugin 'Lokaltog/vim-powerline'
+Plugin 'powerline/powerline'
 Plugin 'ervandew/supertab'
 Plugin 'fugitive.vim'
 Plugin 'Syntastic'
@@ -50,13 +50,16 @@ Plugin 'The-NERD-tree'
 Plugin 'cscope_macros.vim'
 Plugin 'posva/vim-vue'
 
-Plugin 'Erlang-plugin-package'
-Plugin 'erlang-indent-file'
-Plugin 'Erlang_detectVariable'
-Plugin 'vim-erlang-skeleteons'
+" Plugin 'Erlang-plugin-package'
+" Plugin 'erlang-indent-file'
+Plugin 'vim-erlang/vim-erlang-runtime'
+Plugin 'vim-erlang/vim-erlang-compiler'
+" Plugin 'Erlang_detectVariable'
+" Plugin 'vim-erlang-skeleteons'
+Plugin 'jimenezrick/vimerl'
 
 Plugin 'taglist.vim'
-                      
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -152,6 +155,7 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
+syntax on
 
 "colorscheme molokai
 colorscheme jellybeans 
@@ -164,6 +168,35 @@ if has("gui_running")
     set guioptions+=e
     set guitablabel=%M\ %t
 endif
+
+" highlight extra trailing space
+":highlight ExtraWhitespace ctermbg=red guibg=red
+" The following alternative may be less obtrusive.
+highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+" Try the following if your GUI uses a dark background.
+":highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+
+" highlight with match
+" :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+" Show trailing whitespace:
+" :match ExtraWhitespace /\s\+$/
+
+" Show trailing whitespace and spaces before a tab:
+" :match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" Show tabs that are not at the start of a line:
+" :match ExtraWhitespace /[^\t]\zs\t\+/
+
+" Show spaces used for indenting (so you use only tabs for indenting).
+" :match ExtraWhitespace /^\t*\zs \+/
+
+" Switch off :match highlighting.
+" :match
+
+" highlight with syntax
+" Show trailing whitepace and spaces before a tab:
+autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -255,23 +288,24 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-powerline
+" powerline
 let g:Powerline_symbols = 'fancy'
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " cowork with MozRepl
 " autocmd BufWriteCmd *.html,*.css,*.gtpl,*.md,*.js :call Refresh_firefox()
-function! Refresh_firefox()
-	if &modified
-		write
-		silent !sleep 2 && echo  'vimYo = content.window.pageYOffset;
-					\ vimXo = content.window.pageXOffset;
-					\ BrowserReload();
-					\ content.window.scrollTo(vimXo,vimYo);
-					\ repl.quit();'  |
-					\ nc -w 1 localhost 4242 2>&1 > /dev/null &
-	endif
-endfunction
+" function! Refresh_firefox()
+" 	if &modified
+" 		write
+" 		silent !sleep 2 && echo  'vimYo = content.window.pageYOffset;
+" 					\ vimXo = content.window.pageXOffset;
+" 					\ BrowserReload();
+" 					\ content.window.scrollTo(vimXo,vimYo);
+" 					\ repl.quit();'  |
+" 					\ nc -w 1 localhost 4242 2>&1 > /dev/null &
+" 	endif
+" endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " taglist
