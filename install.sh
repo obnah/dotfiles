@@ -15,18 +15,37 @@ ROOT="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 #----------------------------------------------------------
 
 bakdir=~/dotfiles-backup-$(date +"%Y-%m-%d")
-
-pushd $HOME
-
 mkdir -p $bakdir
 
-# mv .bashrc $bakdir/
-mv .vimrc     $bakdir/
-mv .tmux.conf $bakdir/
+backup() {
+	local f=~/$1
+	if [ -e $f ] ; then
+		if readlink $f ; then
+			rm $f
+		else
+			mv $f $bakdir/
+		fi
+	fi
+}
 
-ln -s $ROOT/.vimrc     .vimrc
-ln -s $ROOT/.tmux.conf .tmux.conf
+install_file() {
+	ln -s $ROOT/$1 ~/$1
+}
 
-popd
+files="
+.vimrc
+.tmux.conf
+.aaron_bashrc
+"
 
+
+for f in $files; do
+	backup $f
+	install_file $f
+done
+
+grep '.aaron_bashrc' ~/.bashrc >/dev/null || \
+echo "source .aaron_bashrc" >> ~/.bashrc
+
+rmdir $bakdir 2>/dev/null
 
